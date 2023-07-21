@@ -5,69 +5,102 @@ const last = document.querySelector(".display-last");
 const clearBtn = document.querySelector(".clear-btn");
 const numberBtns = document.querySelectorAll(".number-btn");
 const operationBtns = document.querySelectorAll(".operation-btn");
+const equalBtn = document.querySelector(".equal-btn");
 
-current.innerHTML = "0";
+let firstNumber = undefined;
+let secondNumber = undefined;
+let operator = undefined;
+let result = undefined;
 
 // EVENT LISTENERS
 
-clearBtn.addEventListener("click", () => {
-  current.innerHTML = "0";
-  last.innerHTML = "";
-});
-
 numberBtns.forEach((button) => {
-  button.addEventListener("click", (e) => {
-    let currentValue = current.innerHTML;
-    if (currentValue === "0") {
-      currentValue = e.target.value;
-    } else {
-      currentValue += e.target.value;
-    }
-
-    current.innerHTML = currentValue;
-  });
+  button.addEventListener("click", populateNumber);
 });
 
 operationBtns.forEach((button) => {
   button.addEventListener("click", (e) => {
-    console.log(e.target.value);
+    if (operator && secondNumber === undefined) {
+      secondNumber = Number(current.innerHTML);
+      result = operate(firstNumber, secondNumber, operator);
+      operator = e.target.value;
+      firstNumber = result;
+      last.innerHTML = `${result} ${operator}`;
+      current.innerHTML = "0";
+      secondNumber = undefined;
+    } else if (firstNumber && operator === undefined) {
+      operator = e.target.value;
+      last.innerHTML = `${firstNumber} ${operator}`;
+    } else {
+      firstNumber = Number(current.innerHTML);
+      operator = e.target.value;
+      current.innerHTML = "0";
+      last.innerHTML = `${firstNumber} ${operator}`;
+    }
   });
+});
+
+equalBtn.addEventListener("click", () => {
+  if (operator && secondNumber === undefined) {
+    secondNumber = Number(current.innerHTML);
+    result = operate(firstNumber, secondNumber, operator);
+    firstNumber = result;
+    last.innerHTML = result;
+    current.innerHTML = "0";
+    operator = undefined;
+    secondNumber = undefined;
+  }
+});
+
+clearBtn.addEventListener("click", () => {
+  current.innerHTML = "0";
+  last.innerHTML = "";
+  firstNumber = undefined;
+  secondNumber = undefined;
+  operator = undefined;
+  result = undefined;
 });
 
 // FUNCTIONS
 
-const add = (a, b) => {
+function populateNumber(e) {
+  if (current.innerHTML === "0") {
+    current.innerHTML = e.target.value;
+  } else {
+    current.innerHTML += e.target.value;
+  }
+}
+
+function add(a, b) {
   return a + b;
-};
+}
 
-const substract = (a, b) => {
+function substract(a, b) {
   return a - b;
-};
+}
 
-const multiply = (a, b) => {
+function multiply(a, b) {
   return a * b;
-};
+}
 
-const divide = (a, b) => {
+function divide(a, b) {
+  if (b === 0) {
+    return null;
+  }
   return a / b;
-};
+}
 
-const operate = (firstValue, secondValue, operator) => {
+function operate(firstValue, secondValue, operator) {
   switch (operator) {
     case "+":
       return add(firstValue, secondValue);
     case "-":
       return substract(firstValue, secondValue);
-    case "*":
+    case "×":
       return multiply(firstValue, secondValue);
-    case "/":
+    case "÷":
       return divide(firstValue, secondValue);
+    default:
+      return "Error: Invalid operator";
   }
-};
-
-// TESTING
-
-console.log(operate(1, 2, "+"));
-console.log(operate(1, 2, "-"));
-console.log(operate(1, 2, "*"));
-console.log(operate(1, 2, "/"));
+}

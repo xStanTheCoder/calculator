@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Calculator</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <link rel="stylesheet" href="main.css" />
     <script src="main.js" defer></script>
   </head>
@@ -11,25 +15,37 @@
     <div class="calculator">
       <div class="display">
         <div class="display-last"></div>
-        <div class="display-current"></div>
+        <div class="display-current">0</div>
       </div>
       <button value="clear" class="clear-btn">clear</button>
       <button value="7" class="number-btn">7</button>
       <button value="8" class="number-btn">8</button>
       <button value="9" class="number-btn">9</button>
-      <button value="divide" class="operation-btn">÷</button>
+      <button value="÷" class="operation-btn">÷</button>
       <button value="4" class="number-btn">4</button>
       <button value="5" class="number-btn">5</button>
       <button value="6" class="number-btn">6</button>
-      <button value="multiply" class="operation-btn">×</button>
+      <button value="×" class="operation-btn">×</button>
       <button value="1" class="number-btn">1</button>
       <button value="2" class="number-btn">2</button>
       <button value="3" class="number-btn">3</button>
-      <button value="substract" class="operation-btn">-</button>
-      <button value=".">.</button>
+      <button value="-" class="operation-btn">-</button>
+      <button value="." class="dot-btn">.</button>
       <button value="0" class="number-btn">0</button>
-      <button value="equal" class="operation-btn">=</button>
-      <button value="add" class="operation-btn">+</button>
+      <button value="=" class="equal-btn">=</button>
+      <button value="+" class="operation-btn">+</button>
     </div>
+    <footer>
+      <p>
+        Copyright &copy;
+        <script>
+          document.write(new Date().getFullYear());
+        </script>
+        Stan The Coder
+      </p>
+      <a href="https://github.com/xStanTheCoder" target="_blank">
+        <i class="fa fa-github"></i>
+      </a>
+    </footer>
   </body>
 </html>
